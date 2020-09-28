@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{%block title%} Login {%endblock title%}
+
+{% load accounts_extras %}
+
+{% load static %}
+
+{%block body%}
+
+
+
+<!-- ##### Checkout Area Start ##### -->
+<div class="checkout_area section-padding-10">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6">
+
+              <br><br><br><br>
+                <form  method='post' class="order-details-confirmation">
+                    {% csrf_token %}
+                    <div class="cart-page-heading">
+                        <h5>Se connecter</h5>
+                        <p> à Dress me !
+                       </p>
+                    </div>
+
+                     <div class="col-12 mb-3">
+                                <label for="postcode">Nom d'utilisateur ou email <span>*</span></label>
+                                {{ form.username|add_class:"form-control" }}
+                            </div>
+
+
+                             <div class="col-12 mb-3">
+                                <label for="postcode">Mot de passe <span>*</span></label>
+                                {{ form.password|add_class:"form-control" }}
+                            </div>
+
+
+                            <ul>
+                              <li><a href="{% url 'password_reset'%}"><p style="color:#dc3545">mot de passe oublier ?</p></a></li>
+                            </ul>
+                            <br>
+                              <div class="py-1"><small class="text-danger">{{form.non_field_errors | safe}}</small></div>
+                            {% if 'compte' in form.non_field_errors.as_text  %}
+                            <a class='text-light font-weight-light' href="{% url 'activate_account_form' %}">Activer mon compte</a> <br>
+                            {%endif%}
+                             <button type="submit" class="btn essence-btn">Se connceter</button>
+                             <br>
+
+                </form>
+            </div>
+
+            <div class="col-6">
+
+              <br><br><br><br>
+
+               <img src="{% static '/img/bg-img/back11.jpg' %}" class="img-fluid">
+            </div>
+
+            </div>
+        </div>
+
+        <br><br><br>
+    </div>
+
+<!-- ##### Checkout Area End ##### -->
+
+
+ {%endblock body%}

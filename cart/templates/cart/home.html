@@ -1,0 +1,99 @@
+{%extends 'base.html'%}
+{%load static%}
+{%load accounts_extras %}
+
+{%  block styles %}
+
+{%  endblock styles %}
+{% block title %} Panier{% endblock title %}
+
+
+{% block body %}
+<div class='parallax-header'>
+  <div class="center-y-md text-white text-center">
+      <h1 class='text-center pb-2'><img src="{% static 'img/cart.png'%}" style='height:50px'> </h1>
+      <b>{{cartQtt}} ARTICLES</b>
+
+  </div>
+</div>
+<div class="container-fluid py-4">
+  <!-- <h1 class='text-secondary py-3'>Votre Panier <small>({{cartQtt}} articles)</small></h1> -->
+
+  <div class="container py-4">
+    <div class="row text-secondary border-bottom pb-3 d-none d-md-flex mb-3">
+      <div class="col-md-4 border-right">
+        <b>ARTICLE</b>
+      </div>
+      <div class="col-md-3 border-right">
+        <b>QUANTITÉ</b>
+      </div>
+      <div class="col-md border-right">
+        <b>PRIX UNITAIRE</b>
+      </div>
+      <div class="col-md">
+        <b>SOUS-TOTAL</b>
+      </div>
+    </div>
+    {% for cartItem in cart.cartitem_set.all %}
+    <div class="row text-secondary border-bottom pb-3  mb-3 shadow">
+      <div class="col-md-4">
+            <img src="{{cartItem.produit.image.url}}" alt="" class='w-25'> &nbsp;
+            <a href="{% url 'single_product' cartItem.produit.slug %}"><b>{{cartItem.produit.nom}}</b></a>
+            <small class='text-secondary'><b>{{cartItem.product_with_attribute.getValues}}</b></small>
+      </div>
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-5 text-center pb-2">
+            <div class='position-relative max-md-80'>
+              <div class="spinner-left"><i class='fa fa-minus center text-secondary'></i></div>
+              <input type="number" class='cart-item-qtt text-center custom-input w-100' value={{cartItem.qtt}} data-product={{cartItem.produit.id}} {% if cartItem.product_with_attribute%} data-attribute="{{cartItem.product_with_attribute.id}}"{%endif%}>
+              <div class="spinner-right"><i class='fa fa-plus center text-secondary'></i></div>
+            </div>
+          </div>
+          <div class="col-md-4 position-relative delete-cart mb-3" data-product={{cartItem.id}}>
+            <span class='badge bg-day text-white center-md mt-2'><i class="far fa-trash-alt  p-1 rounded"></i> Suprimmer </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        {% if cartItem.product_with_attribute  %}
+        <h5 class='pb-3 product-shop-price mt-2'>{{cartItem.product_with_attribute.prix}} DA</h5>
+        {%else%}
+          <h5 class='pb-3 product-shop-price mt-2'>{% if cartItem.produit.prix_promotionel %}<span class='line-through text-day'> {{cartItem.produit.prix}} DA</span> {{cartItem.produit.prix_promotionel}} DA{%else%} {{cartItem.produit.prix}} DA{%endif%}</h5>
+        {%endif%}
+
+
+      </div>
+      <div class="col-md text-green d-none d-md-block pt-2">
+        <h5><b>{{cartItem.total}} DA</b></h5>
+      </div>
+    </div>
+  {% endfor %}
+
+<div class="text-right py-3 border-bottom bg-gray shadow pr-4 rounded">
+  <h5><b>TOTAL</b>: <b class='text-green'>{{cart.getTotal}} DA</b></h5>
+  <div class="text-secondary"><i class="fas fa-info-circle"></i> Frais de livraison non inclus pour le moment</div>
+</div>
+
+<div class="row py-3 text-center text-md-right">
+  <div class="col-md offset-md-6">
+    <a href="{% url 'shop'%}" class="btn essence-btn my-2">POURSUIVRE VOS ACHATS</a>
+  </div>
+  <div class="col-md">
+    <a href="{% url 'HomeCommande'%}" class="btn essence-btn my-2"> FINALISER COMMANDE</a>
+  </div>
+</div>
+  </div>
+</div>
+
+{% endblock body %}
+
+
+
+
+
+
+
+{% block scripts %}
+
+{% endblock scripts %}

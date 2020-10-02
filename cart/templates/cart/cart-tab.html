@@ -1,0 +1,47 @@
+{% load static %}
+<div class='cart-tab-header text-dark'>
+    <img src="{% static 'img/cart.png'%}" class='img-fluid'>
+    <div class="center bg-day text-white cart-qtt">
+      <b class='d-inline-block center cart-qtt-number'>{{cartQtt}}</b>
+    </div>
+</div>
+<div class="cart-tab pt-md-3 col-md-3 bg-white border-left">
+  <div class="position-relative">
+
+    <h3 class='text-center text-dark'>  <span class='d-inline-block position-relative'> <small class='center close close-tab bg-day text-white'>x</small> <img src="{% static 'img/cart.png'%}" style="height: 40px;"> </span> Votre Panier</h3>
+
+  </div>
+  <hr>
+
+
+  <div class="container">
+    <div class='items'>
+      {% for cartItem in cart.cartitem_set.all %}
+      <div class='row'>
+        <div class="col-3">
+          <img src="{{cartItem.produit.image.url}}" alt="" class='img-fluid'>
+          <strong class='text-secondary'>{{cartItem.product_with_attribute.getValues}} </strong>
+        </div>
+        <div class="col-md-7 col-6 text-center">
+          <strong class='text-secondary'>{{cartItem.produit.nom}} </strong><br>
+
+          <div class='position-relative mx-auto' style='max-width: 80px;'>
+            <div class="spinner-left"><i class='fa fa-minus center text-secondary'></i></div>
+            <input type="number" class='cart-item-qtt text-center custom-input w-100' value={{cartItem.qtt}} data-product={{cartItem.produit.id}} {% if cartItem.product_with_attribute%}data-attribute="{{cartItem.product_with_attribute.id}}"{%endif%}>
+            <div class="spinner-right"><i class='fa fa-plus center text-secondary'></i></div>
+          </div>
+        </div>
+        <div class="col-2 position-relative delete-cart" data-product={{cartItem.id}}>
+          <i class="far fa-trash-alt center bg-light text-secondary p-1 rounded" ></i>
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+    </div>
+
+    <div class="py-2 text-center">
+      <a href="{%url 'HomeCart' %}" class="btn essence-btn commander {% if not cart.cartitem_set.all %} d-none {% endif %}">Commander</a>
+    </div>
+  </div>
+
+</div>

@@ -26,7 +26,7 @@ SECRET_KEY = '7(_bxjhf1@g!-$!mzn6+we7g*48xqv&jy#)3&_fncw645ap)ai'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 SITE_ID=1
 
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
     'accounts',
     'categories',
     'regions',
@@ -52,7 +54,7 @@ INSTALLED_APPS = [
     'orders',
     'cart'
 ]
-
+CORS_ORIGIN_ALLOW_ALL=True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'market.urls'

@@ -18,18 +18,18 @@ class PostAPI(APIView):
         'length':result_length,
         }
         try:
-            response['previous']=rapports.previous_page_number()
+            response['previous']=posts.previous_page_number()
         except:
             pass
         try:
-            response['next']=rapports.next_page_number()
+            response['next']=posts.next_page_number()
         except:
             pass
         return response
 
     def get(self,request,format=None):
         posts_list=GetPosts(request)
-        paginator = Paginator(posts_list, 10)
+        paginator = Paginator(posts_list, 1)
         page = request.GET.get('page')
         posts=paginator.get_page(page)
         posts_json=PostSerializer(posts,many=True)

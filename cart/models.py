@@ -7,11 +7,8 @@ from posts.api.serializers import PostSerializer
 
 class Cart(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
-    user=models.OneToOneField(User,on_delete=models.CASCADE,null='True',default=None)
-    session_key = models.CharField(max_length=40)
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user', 'session_key',)
 
     def getTotal(self):
         total=0

@@ -27,6 +27,23 @@ class UserProfile(models.Model):
     solde=models.IntegerField(default=0)
     rolee=models.CharField(max_length=255,choices=ROLE_CHOICES,default="Client")
 
+    @property
+    def user_first_name(self):
+        return self.user.first_name
+    @property
+    def user_last_name(self):
+        return self.user.last_name
+    @property
+    def user_email(self):
+        return self.user.email
+
+    @property
+    def user_wilaya(self):
+        return self.commune.wilaya.id
+    @property
+    def user_username(self):
+        return self.user.username     
+
     def __str__(self):
         return self.user.username
 

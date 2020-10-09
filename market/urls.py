@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^accounts/',include('accounts.urls')),
     re_path(r'^posts/',include('posts.urls')),
     re_path(r'^categories/',include('categories.urls')),
     re_path(r'^pays/',include('regions.urls')),

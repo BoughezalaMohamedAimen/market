@@ -5,8 +5,8 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -111,17 +111,23 @@ class ClassificationsApi(APIView):
 
 class AccountApi(APIView):
     def get(self,request,format=None):
-        return Response({'id':request.user.id,'name':request.user.username})        
+        return Response({'id':request.user.id,'name':request.user.username})
 
 class EditProfileApi(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes=(TokenAuthentication,)
+    permission_classes=(IsAuthenticated,)
     def get(self,request,format=None):
         # serializer=EditProfileSerializer(request.user.userprofile)
-        serializer=EditProfileSerializer(UserProfile.objects.get(id=1))
+        serializer=EditProfileSerializer(UserProfile.objects.get(user=request.user))
         return Response(serializer.data)
 
     def post(self,request,format=None):
+        user_serializer = UserSerializer(request.user, data=request.data)
+        if user_serializer.is_valid():
+            user_serializer.save()
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
         serializer = EditProfileSerializer(request.user.userprofile, data=request.data)
         # serializer = EditProfileSerializer(UserProfile.objects.get(id=1), data=request.data)
         if serializer.is_valid():

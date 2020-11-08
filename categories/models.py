@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.utils.text import slugify
 
@@ -18,6 +17,15 @@ class Category(models.Model):
     attributes=models.ManyToManyField("posts.Attribute",blank=True)
 
 
+    @property
+    def category_childs(self):
+        from .api.serializers import CategorySerializer
+        return CategorySerializer(Category.objects.filter(parent=self),many=True).data
+
+    @property
+    def category_seconds_childs(self):
+        from .api.serializers import CategorySerializer
+        return CategorySerializer(Category.objects.filter(parent__in=Category.objects.filter(parent=self)),many=True).data
 
     def save(self, *args, **kwargs):
             self.slug=slugify(self.name)

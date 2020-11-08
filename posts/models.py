@@ -94,17 +94,26 @@ class Post(models.Model):
 
 
 
+    @property
+    def post_category_name(self):
+        return self.category.name
 
     @property
     def post_user(self):
-        from accounts.api.serializers import UserProfileSerializer
-        return UserProfileSerializer(self.user.userprofile).data
+        from accounts.api.serializers import EditProfileSerializer
+        return EditProfileSerializer(self.user.userprofile).data
 
     @property
     def post_attributes(self):
         try:
             from .api.serializers import AttributeValueSerializer
-            return AttributeValueSerializer(self.attributes.all(),many=True).data
+            from django.db.models import Count
+            attributes_values=self.attributes.all()
+            attributes=self.attributes.all().values('attribute__name').annotate(dcount=Count('attribute'))
+            result=[]
+            for attribute in attributes:
+                result.append({attribute["attribute__name"]:AttributeValueSerializer(attributes_values.filter(attribute__name=attribute["attribute__name"]),many=True).data})
+            return result
         except Exception as e:
             print(e)
 

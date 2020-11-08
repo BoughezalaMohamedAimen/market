@@ -1,0 +1,38 @@
+@import "colors.css";
+@import "search.css";
+@import "categories.css";
+@import "top-bar.css";
+@import "shop.css";
+@import "inputs.css";
+#sharedState,#newState
+{
+  display: none;
+}
+body
+{
+  /* background: teal; */
+  padding-bottom: 70px;
+}
+
+a{
+  color:inherit;
+}
+a:hover{
+  color: var(--orange);
+}
+
+.center-absolute
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.match-parent
+{
+  width: 100%;
+  height: 100%;
+}

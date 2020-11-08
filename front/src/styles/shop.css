@@ -1,0 +1,32 @@
+.shop-img
+{
+  height: 350px;
+  background-position: center center !important;
+  -webkit-background-size: cover !important;
+  background-size: cover !important;
+  position: relative;
+}
+
+.shop-short{
+  padding-top: 10px;
+
+}
+
+.shop-short p
+{
+    font-size: 16px !important
+}
+.item .container{
+  text-align: center;
+}
+
+.img-title
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: rgba(255,255,255,.5);
+}

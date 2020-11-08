@@ -1,0 +1,21 @@
+.top-bar
+{
+  height: 55px;
+  width: 100%;
+}
+
+.top-bar .container
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  width: 100%;
+}
+.logo
+{
+  position: absolute;
+  width: 60%;
+}

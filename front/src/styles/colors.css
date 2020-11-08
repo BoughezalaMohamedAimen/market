@@ -1,0 +1,20 @@
+:root
+{
+  --blue:#053d64;
+  --orange:#ea8526;
+  --gray: #ececec;
+  --darkgray:#d8d8d8;
+}
+
+.bg-night{background: #053d64;}
+.text-night{color: #053d64;}
+
+
+.bg-day{background: #ea8526;}
+.text-day{color: #ea8526;}
+
+
+
+
+.bg-gray{background:var(--gray) !important;}
+.bg-darkgray{background:var(--darkgray) !important;}

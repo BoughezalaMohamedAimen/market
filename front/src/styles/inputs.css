@@ -1,0 +1,26 @@
+.simple-select{
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #e3e3e3;
+  border-radius: 0px 10px 10px 0px;
+  background: #e3e3e3;
+}
+.select-label
+{
+  background: #e3e3e3;
+  display: inline-block;
+  padding: 4px;
+}
+.invalid
+{
+  background: var(--orange);
+  animation: invalid 2s;
+}
+@keyframes invalid {
+  0%{background: var(--orange);}
+  25%{background: inherit;}
+  50%{background: var(--orange);}
+  75%{background: inherit;}
+  95%{background: var(--orange);}
+  100%{background: var(--orange);}
+}

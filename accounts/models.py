@@ -17,6 +17,15 @@ def createactive():
     return hashlib.md5(str(datetime.now()).encode()).hexdigest()
 
 
+
+class AnonymousSession(models.Model):
+    session=models.CharField(max_length=255,default=createactive(),unique=True)
+
+    def set(self):
+        self.session=hashlib.md5(str(datetime.now()).encode()).hexdigest()
+        return self.session
+
+
 # Create your models here.
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -26,6 +35,10 @@ class UserProfile(models.Model):
     activate=models.CharField(max_length=255,unique='True')
     solde=models.IntegerField(default=0)
     rolee=models.CharField(max_length=255,choices=ROLE_CHOICES,default="Client")
+
+    @property
+    def full_name(self):
+        return self.user.first_name
 
     @property
     def user_first_name(self):
@@ -42,7 +55,7 @@ class UserProfile(models.Model):
         return self.commune.wilaya.id
     @property
     def user_username(self):
-        return self.user.username     
+        return self.user.username
 
     def __str__(self):
         return self.user.username

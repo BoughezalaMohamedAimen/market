@@ -4,10 +4,14 @@ from django.urls import path,include,re_path
 from django.contrib.auth.views import(
 LoginView,LogoutView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 )
-from .api.api import EditProfileApi
+from .api.api import EditProfileApi,RegisterApi,VerifyAuth,SessionApi
 urlpatterns = [
         # re_path(r'^$', views.HomeAccount.as_view(),name='account'),
         re_path(r'^api$', EditProfileApi.as_view(),name='account'),
+        re_path(r'^api/verify/$', VerifyAuth.as_view(),name='account'),
+        re_path(r'^api/session/new',SessionApi.as_view(),name="newSession"),
+        re_path(r'^api/session/validation',SessionApi.as_view(),name="SessionIsValid"),
+        re_path(r'^api/register', RegisterApi.as_view(),name='RegisterApiRegisterApi'),
         re_path(r'^login/', LoginView.as_view(template_name='accounts/login.html'),name='login'),
         path('logout/', LogoutView.as_view(template_name='home.html'),name='logout'),
         # path('register/', views.Register.as_view(),name='register'),

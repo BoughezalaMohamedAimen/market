@@ -6,7 +6,7 @@ class PostSerializer(serializers.ModelSerializer):
     postuser=serializers.ReadOnlyField(source='post_user')
     postattributes=serializers.ReadOnlyField(source='post_attributes')
     livraison=serializers.ReadOnlyField(source='post_livraison')
-
+    category_name=serializers.ReadOnlyField(source='post_category_name')
     class Meta:
         model = Post
         fields ='__all__'

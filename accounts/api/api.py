@@ -9,9 +9,15 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.core.paginator import Paginator
 from django.db.models import Q
+from accounts.models import AnonymousSession
 
 
+class VerifyAuth(APIView):
+    authentication_classes=(TokenAuthentication,)
+    permission_classes=(IsAuthenticated,)
 
+    def get(self,request,format=None):
+        return Response({'is_authenticated': True}, status=200)
 
 class UserProfileApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
@@ -94,24 +100,33 @@ class SpecialiteApi(APIView):
             ]
         return Response(content)
 
-class ClassificationsApi(APIView):
-    def get(self,request,format=None):
-        content = [
-            {'id':1,'name':'a'},
-            {'id':2,'name':'b'},
-            {'id':3,'name':'c'},
-            {'id':4,'name':'d'},
-            {'id':5,'name':'e'},
-            {'id':6,'name':'f'},
-            {'id':7,'name':'g'},
-            {'id':8,'name':'p'},
-            ]
-        return Response(content)
 
 
 class AccountApi(APIView):
     def get(self,request,format=None):
         return Response({'id':request.user.id,'name':request.user.username})
+
+
+class SessionApi(APIView):
+    def get(self,request,format=None):
+        sess=AnonymousSession()
+        ses=sess.set()
+        sess.save()
+        print("**************** session api *******************")
+        print(ses)
+        return Response({'session':ses})
+        # sessi=sess.save()
+        # print("**************** session *******************")
+        # print(sessi)
+        # return Response({'session':sessi.session})
+
+    def post(self,request,format=None):
+        try:
+            print(f"*************post sessions verify  {request.data.get('session')}")
+            session=AnonymousSession.objects.get(session=request.data.get('session'))
+            return Response({'is_valid':True})
+        except:
+            return Response({'is_valid':False})
 
 class EditProfileApi(APIView):
     authentication_classes=(TokenAuthentication,)
@@ -126,7 +141,7 @@ class EditProfileApi(APIView):
         if user_serializer.is_valid():
             user_serializer.save()
         else:
-            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = EditProfileSerializer(request.user.userprofile, data=request.data)
         # serializer = EditProfileSerializer(UserProfile.objects.get(id=1), data=request.data)
@@ -136,13 +151,24 @@ class EditProfileApi(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class EditUserApi(APIView):
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # permission_classes = [IsAuthenticated]
+class RegisterApi(APIView):
     def post(self,request,format=None):
-        serializer=UserSerializer(request.user, data=request.data)
-        # serializer=UserSerializer(User.objects.get(id=1), data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user_serializer = UserSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user=user_serializer.save()
+        else:
+            print("****************************************************")
+            print(user_serializer.errors)
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        profile = EditProfileSerializer(user.userprofile, data=request.data)
+        if profile.is_valid():
+            profile.save()
+            user.set_password(request.data.get("password"))
+            user.save()
+            return Response(profile.data)
+        else:
+            user.delete()
+            print("****************************************************")
+            print(profile.errors)
+            return Response(profile.errors, status=status.HTTP_400_BAD_REQUEST)

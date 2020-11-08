@@ -10,6 +10,6 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 class CategoryAPI(APIView):
     def get(self,request,format=None):
-        categorys_list=Category.objects.all().order_by('parent')
+        categorys_list=Category.objects.filter(parent__isnull=True)
         categorys_json=CategorySerializer(categorys_list,many=True)
         return Response(categorys_json.data, status=200)

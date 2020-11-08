@@ -1,0 +1,16 @@
+#categorie-tab
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  height: 50%;
+  width: 100%;
+  /* background: var(--blue); */
+  background: #000;
+}
+#categorie-tab.hidden{
+  display: none;
+}

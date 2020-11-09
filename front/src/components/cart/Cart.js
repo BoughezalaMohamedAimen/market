@@ -1,6 +1,6 @@
 import React from 'react';
 import CartItem from './CartItem'
-const axios=require('axios')
+
 
 class Cart extends React.Component {
 
@@ -16,10 +16,16 @@ class Cart extends React.Component {
       <div className="container py-4">
       {this.props.state.cart.map(cartitem=>{
         return(
-          <CartItem cartItem={cartitem}/>
+          <CartItem shared={this.props.state} cartItem={cartitem} getCart={this.props.getCart}  />
           )
         })}
 
+      </div>
+      <div className="container">
+
+          <div className="bg-day text-white text-center py-2" onClick={(e)=>{}}>
+            <b>COMMANDER</b>
+          </div>
       </div>
       </React.Fragment>
       )

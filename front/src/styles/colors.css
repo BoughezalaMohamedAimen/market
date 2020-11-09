@@ -4,6 +4,7 @@
   --orange:#ea8526;
   --gray: #ececec;
   --darkgray:#d8d8d8;
+  --green:#30cb30;
 }
 
 .bg-night{background: #053d64;}
@@ -14,6 +15,8 @@
 .text-day{color: #ea8526;}
 
 
+.bg-green{background: var(--green)}
+.text-green{color: var(--green)}
 
 
 .bg-gray{background:var(--gray) !important;}

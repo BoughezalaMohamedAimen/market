@@ -17,9 +17,12 @@ class Shop extends React.Component {
   render() {
     // {this.state.posts.map(post=>{return post.title})}
     return(
+      <React.Fragment>
+      <div className="py-2 bg-green h4 text-center text-white mb-0"> BOUTIQUE</div>
       <div class="container-fluid py-2 bg-darkgray">
           <List state={this.state} shared={this.props.state} getCart={this.props.getCart} />
       </div>
+      </React.Fragment>
       )
   }
 

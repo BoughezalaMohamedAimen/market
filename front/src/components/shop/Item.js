@@ -14,14 +14,14 @@ class Item extends React.Component {
   render() {
     return(
       <div className="col-md-4">
-          <div className="container bg-white shadow mb-3 pb-3">
-            <div className="shop-img" style={{background: `url(http://192.168.1.23:8000/${this.props.post.image1})`}}>
-              <div className="img-title" >
-                <h5 className="h6 font-weight-bold my-2 text-uppercase text-night text-center">{this.props.post.title}</h5>
-              </div>
+          <div className="shop-img" style={{background: `url(http://192.168.1.23:8000${this.props.post.image1})`}}>
+            <div className="img-title" >
+              <h5 className="h6 font-weight-bold my-2 text-uppercase text-night text-center">{this.props.post.title}</h5>
             </div>
+          </div>
+          <div className="container bg-white shadow mb-3 pb-3">
             <div className="container shop-short py-3 text-center h5 text-night">
-            <b>{this.props.post.price} DA</b> <br/>
+            {this.price(this.props.post)}
             </div>
             <div className="container">
               <div className="row">
@@ -45,6 +45,21 @@ class Item extends React.Component {
             </div>
           </div>
       </div>
+      )
+  }
+
+  price=(post)=>{
+    if(post.promotional>0)
+      return (
+          <React.Fragment>
+          <small class="badge badge-secondary"><del>{this.props.post.price} DA</del></small> <b>{this.props.post.promotional} DA</b> <br/>
+          </React.Fragment>
+      )
+      else
+      return(
+        <React.Fragment>
+         <b>{this.props.post.price} DA</b> <br/>
+        </React.Fragment>
       )
   }
 

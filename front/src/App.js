@@ -56,19 +56,19 @@ class App extends React.Component {
 
          <Switch>
            <Route exact path="/">
-            <Home/>
+            <Shop state={this.state.shared_state} getCart={this.get_cart}/>
            </Route>
            <Route exact path="/categories">
             <Categories state={this.state.shared_state}/>
            </Route>
            <Route exact path="/cart">
-            <Cart state={this.state.shared_state}/>
+            <Cart state={this.state.shared_state} getCart={this.get_cart} />
            </Route>
            <Route exact path="/account">
              <Account state={this.state.shared_state} getCart={this.get_cart}/>
            </Route>
            <Route exact path="/shop">
-             <Shop state={this.state.shared_state} getCart={this.get_cart}/>
+             <Home/>
            </Route>
          </Switch>
          <Footer state={this.state.shared_state}/>

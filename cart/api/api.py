@@ -78,3 +78,43 @@ class AddCartApi(APIView):
                 return Response({"message":"invalid cart item "}, status=202)
         else:
             return Response({"message":"already exist"}, status=202)
+
+
+class DeleteCartItemApi(APIView):
+    authentication_classes=(TokenAuthentication,)
+
+    def post(self,request,format=None):
+        if is_authenticated(request):
+            cart=get_user_cart(request)
+        else:
+            cart=get_anonymous_cart(request,request.data.get("session"))
+
+        try:
+            cart_item=CartItem.objects.get(id=request.data.get("id"))
+            if cart_item.cart == cart:
+                cart_item.delete()
+                return Response({"message":"delete successful"}, status=200)
+            else:
+                return Response({"message":"not allowed"}, status=403)
+        except CartItem.DoesNotExist:
+               return Response({"message":"doesnt exist"}, status=404)
+
+class CartItemQttApi(APIView):
+    authentication_classes=(TokenAuthentication,)
+
+    def post(self,request,format=None):
+        if is_authenticated(request):
+            cart=get_user_cart(request)
+        else:
+            cart=get_anonymous_cart(request,request.data.get("session"))
+
+        try:
+            cart_item=CartItem.objects.get(id=request.data.get("id"))
+            if cart_item.cart == cart:
+                cart_item.qtt=request.data.get("qtt")
+                cart_item.save()
+                return Response({"message":"update successful"}, status=200)
+            else:
+                return Response({"message":"not allowed"}, status=403)
+        except CartItem.DoesNotExist:
+               return Response({"message":"doesnt exist"}, status=404)

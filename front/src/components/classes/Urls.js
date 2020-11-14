@@ -4,6 +4,7 @@
 
 class Urls  {
   constructor(token){
+    // this.url="https://market.powertech-dz.net"
     this.url="http://192.168.1.23:8000"
     this.token=token
     this.categories=`${this.url}/categories/api`
@@ -15,6 +16,7 @@ class Urls  {
     this.auth=`${this.url}/api-auth/`
     this.pays=`${this.url}/pays/api`
     this.shop=`${this.url}/posts/api`
+    this.single_post=`${this.url}/posts/api/`
     this.user=`${this.url}/accounts/api`
     this.is_session_valid=`${this.url}/accounts/api/session/validation`
     this.new_session=`${this.url}/accounts/api/session/new`

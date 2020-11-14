@@ -16,7 +16,7 @@ class Footer extends React.Component {
 
           <div className="row">
             <div className="col-3 text-center">
-            <Link to="/">
+            <Link to="/" id="shop-link">
             <IconButton edge="start"  className="menu-button" color="inherit" aria-label="menu" style={{outline:0}} onClick={(e)=>{$('.active-menu').removeClass('active-menu');e.target.classList.add("active-menu");}}>
               <StorefrontIcon />
             </IconButton>

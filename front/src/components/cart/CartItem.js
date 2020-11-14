@@ -11,7 +11,7 @@ class CartItem extends React.Component {
     return(
       <React.Fragment>
       <div className="row mb-3" key={cartitem.id} >
-        <div  className="col-4"> <img src={`http://192.168.1.23:8000${cartitem.details.image1}`} className="img-fluid"/></div>
+        <div  className="col-4"> <img src={`${this.props.shared.urls.url}${cartitem.details.image1}`} className="img-fluid"/></div>
         <div  className="col border-bottom">
         <div className="h6">{ cartitem.details.title }</div>
         {cartitem.attributes_details.map((attribute)=>(

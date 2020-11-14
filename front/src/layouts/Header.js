@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import {Link} from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
-import logo from '../images/logo.png'
+import logo from '../images/logoo.png'
 
 // <img src={logo} className="logo center-absolute" />
 
@@ -21,14 +21,14 @@ class Header extends React.Component {
 
           <div className="row">
             <div className="col-2 text-white bg-night py-1">
-            <Link to="categories">
+            <Link to="/categories">
               <IconButton edge="start"  color="inherit" aria-label="menu" style={{outline:0}} onClick={(e)=>{}}>
                 <MenuIcon />
               </IconButton>
             </Link>
             </div>
             <div className="col-8 py-1">
-              <h4 className="text-white w-100 center-absolute text-center"> LOGO</h4>
+              <img src={logo} className="logo center-absolute" />
             </div>
             <div className="col-2 text-right text-white bg-night py-1">
             <IconButton edge="start"  color="inherit" aria-label="menu" style={{outline:0}}>

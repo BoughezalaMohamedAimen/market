@@ -28,7 +28,13 @@ class Category(models.Model):
         return CategorySerializer(Category.objects.filter(parent__in=Category.objects.filter(parent=self)),many=True).data
 
     def save(self, *args, **kwargs):
-            self.slug=slugify(self.name)
+            try:
+                self.slug=slugify(self.name)
+                Category.objects.get(slug=self.slug)
+                self.slug=f'{slugify(self.parent.name)}-{self.slug}'
+            except:
+                self.slug=slugify(self.name)
+
             super().save(*args, **kwargs)
 
     def __str__(self):

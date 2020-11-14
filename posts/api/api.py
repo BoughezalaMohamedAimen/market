@@ -10,6 +10,20 @@ from django.core.paginator import Paginator
 
 from posts.filters import GetPosts
 
+
+
+
+class SinglePostAPI(APIView):
+    def get(self,request,slug="",format=None):
+        try:
+            post=PostSerializer(Post.objects.get(slug=slug))
+            return Response(post.data, status=200)
+        except Exception as e:
+            print("*********************** single post exception *************")
+            print(e)
+            return Response({"response":"not found"},status=404)
+
+
 class PostAPI(APIView):
     def pagination_response(self,posts,json,result_length):
         response={

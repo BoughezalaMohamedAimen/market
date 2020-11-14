@@ -4,8 +4,7 @@ class Home extends React.Component {
   render() {
     return(
       <React.Fragment>
-      <br/><br/><br/><br/><br/>
-        <h1> Home </h1>
+      <h1> HOME</h1>
       </React.Fragment>
       )
   }

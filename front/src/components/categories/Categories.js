@@ -6,7 +6,7 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 const axios=require('axios')
 
@@ -24,6 +24,7 @@ class Categories extends React.Component {
   render() {
     return(
       <React.Fragment>
+
       <div className="py-2 bg-primary h4 text-center text-white mb-0"> CATEGORIES </div>
 
         <div class="container py-3 bg-darkgray">
@@ -41,10 +42,10 @@ class Categories extends React.Component {
                 {cat.childs.map((child_cat)=>{
                   return (
                   <div className="px-3 py-3" key={child_cat.id}>
-                    <span class="badge bg-green text-white" style={{fontSize:"25px"}}>{child_cat.name}</span>
+                    <span class="badge bg-green text-white" style={{fontSize:"25px"}} onClick={(e)=>{this.categorie_filter(child_cat)}}>{child_cat.name}</span>
                     <div className="px-3">
                     {child_cat.childs.map((sub_child)=>(
-                    <React.Fragment><span class="badge bg-gray my-2" style={{fontSize:"20px"}}>{sub_child.name}</span> <br/></React.Fragment>
+                    <React.Fragment key={sub_child.id}><span class="badge bg-gray my-2" style={{fontSize:"20px"}} onClick={(e)=>{this.categorie_filter(sub_child)}}>{sub_child.name}</span> <br/></React.Fragment>
                     ))}
                     </div>
                   </div>
@@ -58,6 +59,12 @@ class Categories extends React.Component {
         </div>
         </React.Fragment>
       )
+  }
+  categorie_filter=(cat)=>{
+    reactLocalStorage.set('selected_cat', cat.id);
+    document.getElementById('shop-link').click();
+    // setTimeout(()=>{$('#selected_cat').html(`${cat.id}`);},200)
+    ;
   }
 }
 

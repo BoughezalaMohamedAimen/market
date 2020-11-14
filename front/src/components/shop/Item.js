@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from "jquery";
-
+import {Link} from "react-router-dom";
 import {reactLocalStorage} from 'reactjs-localstorage';
 
 const axios=require('axios')
@@ -14,9 +14,9 @@ class Item extends React.Component {
   render() {
     return(
       <div className="col-md-4">
-          <div className="shop-img" style={{background: `url(http://192.168.1.23:8000${this.props.post.image1})`}}>
+          <div className="shop-img" style={{background: `url(${this.props.shared.urls.url}${this.props.post.image1})`}}>
             <div className="img-title" >
-              <h5 className="h6 font-weight-bold my-2 text-uppercase text-night text-center">{this.props.post.title}</h5>
+              <h5 className="h6 font-weight-bold my-2 text-uppercase text-night text-center"><Link to={`/products/${this.props.post.slug}`}>{this.props.post.title}</Link></h5>
             </div>
           </div>
           <div className="container bg-white shadow mb-3 pb-3">

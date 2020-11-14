@@ -12,15 +12,17 @@ class LoginForm extends React.Component {
 
   render() {
     return(
-      <React.Fragment>
-      username:
-        <input type="text" onChange={(e)=>this.setState({username:e.target.value})}/>
-        <br/>
-        password:
-          <input type="text" onChange={(e)=>this.setState({password:e.target.value})}/>
+      <div className="login-wrapper bg-night">
+        <div className="center-absolute text-white container">
+        username:
+          <input type="text" className="login-input"  onChange={(e)=>this.setState({username:e.target.value})} />
           <br/>
-        <a className="btn btn-dark" onClick={(e)=>this.connect(this)}> Connexion </a>
-      </React.Fragment>
+          password:
+            <input type="password" className="login-input"  onChange={(e)=>this.setState({password:e.target.value})} />
+            <br/>
+          <div className="bg-day text-white text-center py-2" onClick={(e)=>this.connect(this)}> LOG IN </div>
+        </div>
+      </div>
       )
   }
 

@@ -13,12 +13,13 @@ import Cart from './components/cart/Cart';
 import Account from './components/account/Account';
 import LoginForm from './components/account/LoginForm';
 import Shop from './components/shop/Shop';
+import Single from './components/shop/single/Single';
 import Home from './components/home/Home';
 
 
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
-
+import Waiter from './layouts/Waiter';
 import {reactLocalStorage} from 'reactjs-localstorage';
 
 import $ from "jquery";
@@ -32,6 +33,7 @@ class App extends React.Component {
       this.get_categories()
       this.get_attributes()
       this.get_regions()
+      reactLocalStorage.set('selected_cat',0)
 
   }
 
@@ -53,7 +55,7 @@ class App extends React.Component {
         <Header state={this.state.shared_state}/>
         <div  id="newState" onClick={(e)=>{this.set_state()}}></div>
         <div  id="sharedState">{JSON.stringify(this.state.shared_state)}</div>
-
+          <Waiter/>
          <Switch>
            <Route exact path="/">
             <Shop state={this.state.shared_state} getCart={this.get_cart}/>
@@ -70,6 +72,7 @@ class App extends React.Component {
            <Route exact path="/shop">
              <Home/>
            </Route>
+           <Route exact path="/products/:slug" render={(props) => <Single {...props} shared={this.state.shared_state} getCart={this.get_cart} />  } />
          </Switch>
          <Footer state={this.state.shared_state}/>
        </Router>
@@ -100,8 +103,9 @@ class App extends React.Component {
        })
       .catch((error) => {
           console.log('error init auth ' + error);
+          reactLocalStorage.remove('token');
        });
-    }else{this.get_session()}
+    }else{reactLocalStorage.remove('token');this.get_session()}
   }
 
   get_session=()=>{
@@ -127,6 +131,7 @@ class App extends React.Component {
          })
         .catch((error) => {
             console.log('error validating session ' + error);
+            reactLocalStorage.remove('token');
          });
       }
       else

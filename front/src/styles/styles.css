@@ -1,4 +1,5 @@
 @import "colors.css";
+@import "waiter.css";
 @import "search.css";
 @import "categories.css";
 @import "top-bar.css";
@@ -40,4 +41,10 @@ a:hover{
 .active-menu
 {
   color: var(--orange) !important;
+}
+
+.login-wrapper
+{
+  width: 100%;
+  height: calc(100vh - 102px);
 }

@@ -7,6 +7,7 @@ from django.db.models import Count
 class CartItemSerializer(serializers.ModelSerializer):
     details=serializers.ReadOnlyField(source='post_details')
     attributes_details=serializers.ReadOnlyField(source='item_attributes_details')
+    total=serializers.ReadOnlyField(source='item_total')
     class Meta:
         model = CartItem
         exclude =['cart',]

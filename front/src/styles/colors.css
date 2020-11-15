@@ -5,14 +5,16 @@
   --gray: #ececec;
   --darkgray:#d8d8d8;
   --green:#30cb30;
+  --black:#0a0a0a;
+  --purple:#3a4665;
 }
 
-.bg-night{background: #053d64;}
+.bg-night{background: var(--black);}
 .text-night{color: #053d64;}
 
 
-.bg-day{background: #ea8526;}
-.text-day{color: #ea8526;}
+.bg-day{background: #3a4665;}
+.text-day{color: #3a4665;}
 
 
 .bg-green{background: var(--green)}
@@ -21,3 +23,6 @@
 
 .bg-gray{background:var(--gray) !important;}
 .bg-darkgray{background:var(--darkgray) !important;}
+
+.bg-blue{background: var(--blue);}
+.bg-purple{background: var(--purple);}

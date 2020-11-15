@@ -10,6 +10,7 @@ class Account extends React.Component {
     if (JSON.stringify(this.props.state.user) != JSON.stringify({}))
     return(
       <React.Fragment>
+      <div className="py-2 bg-blue h4 text-center text-white mb-0"> ACCOUNT</div>
       <br/><br/><br/><br/><br/>
         <ProfileForm state={this.props.state}/>
       <br/><br/><br/><br/><br/>
@@ -19,6 +20,7 @@ class Account extends React.Component {
       else
       return(
         <React.Fragment>
+        <div className="py-2 bg-blue h4 text-center text-white mb-0"> LOGIN</div>
         <LoginForm getCart={this.props.getCart} />
         </React.Fragment>
       )

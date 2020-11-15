@@ -28,6 +28,9 @@ class CartItem(models.Model):
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
 
 
+    @property
+    def item_total(self):
+        return self.post.price*self.qtt if self.post.promotional ==0 else self.post.promotional*self.qtt
 
     @property
     def post_details(self):

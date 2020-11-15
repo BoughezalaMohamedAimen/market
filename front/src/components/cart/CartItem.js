@@ -1,7 +1,7 @@
 import React from 'react';
 import DeleteButton from './DeleteButton'
 import Qtt from './Qtt'
-
+import {Link} from "react-router-dom";
 
 
 class CartItem extends React.Component {
@@ -13,7 +13,7 @@ class CartItem extends React.Component {
       <div className="row mb-3" key={cartitem.id} >
         <div  className="col-4"> <img src={`${this.props.shared.urls.url}${cartitem.details.image1}`} className="img-fluid"/></div>
         <div  className="col border-bottom">
-        <div className="h6">{ cartitem.details.title }</div>
+        <div className="h6"><Link to={`/products/${cartitem.details.slug}`}>{ cartitem.details.title }</Link></div>
         {cartitem.attributes_details.map((attribute)=>(
           <small className="text-secondary"> {attribute.attribute}: {attribute.value}</small>
         ))}

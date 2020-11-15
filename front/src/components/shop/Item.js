@@ -41,7 +41,7 @@ class Item extends React.Component {
           </div>
 
             <div className="bg-day text-white text-center py-2" onClick={(e)=>{this.add_to_cart(this.props.post)}}>
-              <b>AJOUTER AU PANIER</b>
+              <b>ADD TO CART </b>
             </div>
           </div>
       </div>

@@ -19,7 +19,7 @@ def GetPosts(request):
     # print(request.GET.urlencode())
     get=dict(request.GET)
     if request.GET.get('cat'):
-        posts_list=Post.objects.filter(category__id=request.GET.get('cat')).order_by('updated')
+        posts_list=Post.objects.filter(category__slug=request.GET.get('cat')).order_by('updated')
     else:
          posts_list=Post.objects.all().order_by('updated')
     for key in get:

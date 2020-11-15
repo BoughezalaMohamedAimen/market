@@ -13,7 +13,8 @@ class Shop extends React.Component {
   }
 
   componentDidMount(){
-    setTimeout(()=>{this.get_posts(reactLocalStorage.get('selected_cat'))},100)
+
+    setTimeout(()=>{this.get_posts(this.props.match.params.slug)},100)
 
 
   }
@@ -22,9 +23,8 @@ class Shop extends React.Component {
     // {this.state.posts.map(post=>{return post.title})}
     return(
       <React.Fragment>
-      <div  className="d-none" id="selected_cat">0</div>
       <div className="d-none" id="categorie-filter" onClick={(e)=>{this.get_posts_by_category()}}></div>
-      <div className="py-2 bg-green h4 text-center text-white mb-0"> SHOP</div>
+      <div className="py-2 bg-blue h4 text-center text-white mb-0"> SHOP</div>
       <div class="container-fluid py-2 bg-darkgray">
           <List state={this.state} shared={this.props.state} getCart={this.props.getCart} />
       </div>

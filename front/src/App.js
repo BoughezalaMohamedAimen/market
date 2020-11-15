@@ -4,7 +4,7 @@ import './styles/styles.css';
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route,Link,Redirect} from "react-router-dom";
 
 import Urls from './components/classes/Urls';
 
@@ -15,6 +15,7 @@ import LoginForm from './components/account/LoginForm';
 import Shop from './components/shop/Shop';
 import Single from './components/shop/single/Single';
 import Home from './components/home/Home';
+import Order from './components/order/Order';
 
 
 import Header from './layouts/Header';
@@ -58,7 +59,7 @@ class App extends React.Component {
           <Waiter/>
          <Switch>
            <Route exact path="/">
-            <Shop state={this.state.shared_state} getCart={this.get_cart}/>
+            <Redirect from="/" to="/shop" />
            </Route>
            <Route exact path="/categories">
             <Categories state={this.state.shared_state}/>
@@ -69,10 +70,11 @@ class App extends React.Component {
            <Route exact path="/account">
              <Account state={this.state.shared_state} getCart={this.get_cart}/>
            </Route>
-           <Route exact path="/shop">
-             <Home/>
-           </Route>
+           <Route exact path="/shop/:slug?" render={(props) => <Shop {...props} state={this.state.shared_state} getCart={this.get_cart} />  } />
            <Route exact path="/products/:slug" render={(props) => <Single {...props} shared={this.state.shared_state} getCart={this.get_cart} />  } />
+           <Route exact path="/order">
+            <Order state={this.state.shared_state} getCart={this.get_cart} />
+           </Route>
          </Switch>
          <Footer state={this.state.shared_state}/>
        </Router>

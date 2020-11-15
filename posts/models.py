@@ -76,7 +76,7 @@ class Post(models.Model):
     title=models.CharField(max_length=255,db_index=True)
     description=RichTextField(db_index=True)
     price=models.PositiveIntegerField(blank=True,db_index=True)
-    promotional=models.PositiveIntegerField(blank=True,db_index=True,null=True)
+    promotional=models.PositiveIntegerField(default=0,db_index=True)
 
     attributes=models.ManyToManyField(AttributeValue,blank=True)
     valid=models.BooleanField(default=False)

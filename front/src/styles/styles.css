@@ -5,6 +5,7 @@
 @import "top-bar.css";
 @import "shop.css";
 @import "inputs.css";
+@import "fonts.css";
 #sharedState,#newState
 {
   display: none;
@@ -13,6 +14,7 @@ body
 {
   /* background: teal; */
   padding-bottom: 70px;
+  font-family: 'Goldman', cursive;
 }
 
 a{

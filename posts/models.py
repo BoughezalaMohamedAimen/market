@@ -93,6 +93,9 @@ class Post(models.Model):
         # return reverse('single_product',args=[str(self.slug)])
 
 
+    def exact_price(self):
+        return self.price if self.promotional==0 else  self.promotional
+
 
     @property
     def post_category_name(self):

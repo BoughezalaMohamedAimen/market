@@ -6,12 +6,21 @@ from django.utils import timezone
 from posts.api.serializers import PostSerializer
 from accounts.models import AnonymousSession
 
+
+
 class Cart(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     user=models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
     session=models.ForeignKey(AnonymousSession,on_delete=models.CASCADE,blank=True,null=True)
 
 
+
+    def can_be_order(self):
+        return len(CartItem.objects.filter(cart=self)) > 0
+
+    def to_order(self,order):
+        for cartitem in CartItem.objects.filter(cart=self):
+            cartitem.to_order_item(order)
 
     def getTotal(self):
         total=0
@@ -27,6 +36,9 @@ class CartItem(models.Model):
     qtt=models.PositiveIntegerField()
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
 
+
+    def to_order_item(self,order):
+         OrderItem(order=order,post=self.post,attributevalue=self.attributevalue,qtt=self.qtt,price=self.post.exact_price).save()
 
     @property
     def item_total(self):
@@ -44,11 +56,3 @@ class CartItem(models.Model):
     def __str__(self):
         attributes=[atrvalue.__str__() for atrvalue in self.attributevalues.all()]
         return f'{self.post} {" ".join(attributes)}'
-
-    # def update_total(self):
-    #     try:
-    #         self.total=self.qtt*self.product_with_attribute.prix #if self.product_with_attribute.prix else self.qtt*self.product_with_attribute.prix_promotionel
-    #     except:
-    #         print(self.produit.prix_promotionel)
-    #         self.total=self.qtt*self.produit.prix if self.produit.prix_promotionel==0 else self.qtt*self.produit.prix_promotionel
-    #     return self.total

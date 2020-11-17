@@ -73,7 +73,7 @@ class App extends React.Component {
            <Route exact path="/shop/:slug?" render={(props) => <Shop {...props} state={this.state.shared_state} getCart={this.get_cart} />  } />
            <Route exact path="/products/:slug" render={(props) => <Single {...props} shared={this.state.shared_state} getCart={this.get_cart} />  } />
            <Route exact path="/order">
-            <Order state={this.state.shared_state} getCart={this.get_cart} />
+            <Order sharedState={this.state.shared_state} getCart={this.get_cart} />
            </Route>
          </Switch>
          <Footer state={this.state.shared_state}/>
@@ -99,6 +99,7 @@ class App extends React.Component {
           }
           else
           {
+            console.log("response******** is authenticated  false **************");
             reactLocalStorage.remove('token');
             this.get_session()
           }
@@ -234,6 +235,7 @@ class App extends React.Component {
       {
         this.setState({ shared_state: { ...this.state.shared_state, user: response.data} });
         console.log("the user is ");
+        reactLocalStorage.setObject('user',response.data)
         console.log(response.data);
       }
     })

@@ -43,7 +43,7 @@ class CartApi(APIView):
 
         cart_items_json=CartItemSerializer(CartItem.objects.filter(cart=cart),many=True)
         return Response(cart_items_json.data, status=200)
-        # return Response({'cart':[]}, status=200)
+        
 
 
 class AddCartApi(APIView):

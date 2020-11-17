@@ -23,7 +23,7 @@ class Cart extends React.Component {
 
       </div>
       <div className="container">
-      <div className="text-right   py-3"><span className="p-3 bg-night text-white"> TOTAL SANS LIVRAISON: {this.total} DA</span></div>
+      <div className="text-right   py-3"><span className="p-3 bg-day text-white"> TOTAL SANS LIVRAISON: {this.total} DA</span></div>
       {this.render_order_link()}
       </div>
 
@@ -37,7 +37,7 @@ class Cart extends React.Component {
       reactLocalStorage.set('totalcart', this.total);
       return (
         <React.Fragment>
-        <div className="bg-day text-white text-center py-2" onClick={(e)=>{}}>
+        <div className="bg-night text-white text-center py-2" onClick={(e)=>{}}>
           <Link to="/order" ><b>ORDER NOW</b></Link>
         </div>
         </React.Fragment>

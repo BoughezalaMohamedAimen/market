@@ -21,7 +21,7 @@ class Order(models.Model):
     info=models.TextField(null='True',blank='True')
     remise=models.PositiveIntegerField(default=0)
     livraison=models.PositiveIntegerField()
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
 
 
 class OrderItem(models.Model):

@@ -13,6 +13,7 @@ urlpatterns = [
     re_path(r'^categories/',include('categories.urls')),
     re_path(r'^pays/',include('regions.urls')),
     re_path(r'^cart/',include('cart.urls')),
+    re_path(r'^order/',include('orders.urls')),
     path('api-auth/', views.obtain_auth_token,name="obtain_auth_token"),
 ]+  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

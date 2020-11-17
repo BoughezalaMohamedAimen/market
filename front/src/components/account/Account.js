@@ -11,7 +11,7 @@ class Account extends React.Component {
     return(
       <React.Fragment>
       <div className="py-2 bg-blue h4 text-center text-white mb-0"> ACCOUNT</div>
-      <br/><br/><br/><br/><br/>
+      
         <ProfileForm state={this.props.state}/>
       <br/><br/><br/><br/><br/>
         <Register state={this.props.state}/>

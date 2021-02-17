@@ -130,14 +130,15 @@ class Post(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.slug+=f'{self.category.slug}-{slugify(self.title)}-{self.user.userprofile.commune.wilaya.name}-annonces-vente-echange-en-ligne-livraison-a-domicile-dz-algerie'
-        if self.id:
-            self.slug+='-'+str(self.id)
-        super().save(*args, **kwargs)
-        if self.slug.split('-')[-1]!=str(self.id):
-            print(self.slug.split('-')[-1])
-            self.slug=f'{self.category.slug}-{slugify(self.title)}-{self.user.userprofile.commune.wilaya.name}-annonces-vente-echange-en-ligne-livraison-a-domicile-dz-algerie-{self.id}'
+        if self.slug=="":
+            self.slug+=f'{self.category.slug}-{slugify(self.title)}-{self.user.userprofile.commune.wilaya.name}-annonces-vente-echange-en-ligne-livraison-a-domicile-dz-algerie'
+            if self.id:
+                self.slug+='-'+str(self.id)
             super().save(*args, **kwargs)
+            if self.slug.split('-')[-1]!=str(self.id):
+                print(self.slug.split('-')[-1])
+                self.slug=f'{self.category.slug}-{slugify(self.title)}-{self.user.userprofile.commune.wilaya.name}-annonces-vente-echange-en-ligne-livraison-a-domicile-dz-algerie-{self.id}'
+                super().save(*args, **kwargs)
 
 class PostLivraison(models.Model):
     livraison=models.PositiveIntegerField(default=0)

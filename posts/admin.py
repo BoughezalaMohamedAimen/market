@@ -1,11 +1,17 @@
 from django.contrib import admin
 from .models import *
-
+from django.utils.safestring import mark_safe
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('id','added','title','category','price','promotional','valid')
+    list_display = ('id','added','title','category','price','promotional','image_image1','valid')
+    list_filter=('valid','category',)
     search_fields = ["name"]
     autocomplete_fields = ['attributes','category','user','motif']
+
+
+    def image_image1(self, obj):
+        return mark_safe(f'<img src="{obj.image1.url}" width="100" />')
+
 
     def changeform_view(self, request, *args, **kwargs):
         self.readonly_fields = list(self.readonly_fields)

@@ -5,7 +5,7 @@ from datetime import datetime
 from django.utils import timezone
 from posts.api.serializers import PostSerializer
 from accounts.models import AnonymousSession
-
+from orders.models import OrderItem
 
 
 class Cart(models.Model):
@@ -15,7 +15,7 @@ class Cart(models.Model):
 
 
 
-    def can_be_order(self):
+    def is_not_empty(self):
         return len(CartItem.objects.filter(cart=self)) > 0
 
     def to_order(self,order):
@@ -38,7 +38,11 @@ class CartItem(models.Model):
 
 
     def to_order_item(self,order):
-         OrderItem(order=order,post=self.post,attributevalue=self.attributevalue,qtt=self.qtt,price=self.post.exact_price).save()
+         order_item=OrderItem.objects.create(order=order,post=self.post,qtt=self.qtt,price=self.post.exact_price())
+         order_item.attributevalue.set(self.attributevalues.all())
+         # order_item.save()
+         print(order_item)
+         #
 
     @property
     def item_total(self):

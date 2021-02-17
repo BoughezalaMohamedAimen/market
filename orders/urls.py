@@ -3,5 +3,5 @@ from .views import *
 from .api.api import OrderAPI
 
 urlpatterns = [
-    path('api/new',OrderAPI.as_view(),name="PostAPI" ),
+    path('api/new/',OrderAPI.as_view(),name="NewOrder" ),
 ]

@@ -22,14 +22,20 @@ def GetPosts(request):
         posts_list=Post.objects.filter(category__slug=request.GET.get('cat')).order_by('updated')
     else:
          posts_list=Post.objects.all().order_by('updated')
+
+
+    #example request ?1_char=xl
     for key in get:
         try:
-            requested_data=key.split('_')
-            filters[filters_list[requested_data[1]]]=request.GET.get(key).split(',') if filters_list[requested_data[1]].endswith('__in') else request.GET.get(key)
-            filters['attributes__id']=requested_data[0]
-            print(filters)
-            posts_list=posts_list.filter(**filters)
-            filters={}
+            if request.GET.get(key)!="":
+                requested_data=key.split('_')
+                filters[filters_list[requested_data[1]]]=request.GET.get(key).split(',') if filters_list[requested_data[1]].endswith('in') else request.GET.get(key)
+                filters['attributes__attribute__id']=int(requested_data[0])
+                print('***************************** filters *******')
+                print(filters)
+                posts_list=posts_list.filter(**filters)
+                print(posts_list)
+                filters={}
         except Exception as e :
             print(e)
         # filters[]=get[key]

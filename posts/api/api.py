@@ -43,7 +43,7 @@ class PostAPI(APIView):
 
     def get(self,request,format=None):
         posts_list=GetPosts(request)
-        paginator = Paginator(posts_list, 10)
+        paginator = Paginator(posts_list, 1)
         page = request.GET.get('page')
         posts=paginator.get_page(page)
         posts_json=PostSerializer(posts,many=True)

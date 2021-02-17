@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from cart.models import Cart
+from cart.models import Cart, CartItem
 from accounts.models import AnonymousSession
 
 
@@ -31,18 +31,23 @@ def get_anonymous_cart(request,session):
 
 class OrderAPI(APIView):
     def post(self,request,format=None):
-            cart=get_user_cart(request) if is_authenticated(request) else get_anonymous_cart(request,request.GET.get("ses"))
+            cart=get_user_cart(request) if is_authenticated(request) else get_anonymous_cart(request,request.data.get("session"))
 
-            if cart.can_be_order():
+            if cart.is_not_empty():
                 serializer = OrderSerializer(data=request.data)
                 if is_authenticated(request):
                     serializer.set_the_user(request.user)
 
                 if serializer.is_valid():
                     order=serializer.save()
-                    cart.cart_to_order(order)
+                    cart.to_order(order)
+                    cart.delete()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response({"error":"empty cart"}, status=403)
+                else:
+                    print(serializer.errors)
+                    return Response({"error":f" in serializer {serializer.errors}"}, status=403)
+            else:
+                return Response({"error":"empty cart"}, status=403)
 
 
 class OrderItemAPI(APIView):

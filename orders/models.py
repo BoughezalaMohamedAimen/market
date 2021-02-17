@@ -9,6 +9,9 @@ class OrderStatus(models.Model):
     name=models.CharField(max_length=255)
     color=models.CharField(max_length=7)
 
+    def __str__(self):
+        return self.name
+
 class Order(models.Model):
     created_at = models.DateTimeField(default=datetime.datetime.now)
     updated_at = models.DateTimeField(default=datetime.datetime.now)
@@ -20,7 +23,7 @@ class Order(models.Model):
     phone=models.CharField(max_length=10)
     info=models.TextField(null='True',blank='True')
     remise=models.PositiveIntegerField(default=0)
-    livraison=models.PositiveIntegerField()
+    livraison=models.PositiveIntegerField(blank=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
 
 
@@ -30,3 +33,13 @@ class OrderItem(models.Model):
     attributevalue=models.ManyToManyField(AttributeValue)
     qtt=models.PositiveIntegerField()
     price=models.PositiveIntegerField()
+
+
+
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
+@receiver(pre_save, sender=Order)
+def vente_item_handler(sender, **kwargs):
+    if  kwargs['instance'].livraison is None :
+        kwargs['instance'].livraison=kwargs['instance'].commune.wilaya.prix

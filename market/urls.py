@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from rest_framework.authtoken import views
 # from .static_views import Home
 from django.views.generic import TemplateView
+from graphene_django.views import GraphQLView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,8 +14,9 @@ urlpatterns = [
     re_path(r'^categories/',include('categories.urls')),
     re_path(r'^pays/',include('regions.urls')),
     re_path(r'^cart/',include('cart.urls')),
-    re_path(r'^order/',include('orders.urls')),
+    re_path(r'^orders/',include('orders.urls')),
     path('api-auth/', views.obtain_auth_token,name="obtain_auth_token"),
+    path("graphql", GraphQLView.as_view(graphiql=True)),
 ]+  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header='Administration du magasin'

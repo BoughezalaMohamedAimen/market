@@ -2,9 +2,10 @@ import graphene
 from posts.schema import schema as posts_schema
 from categories.schema import schema as categories_schema
 from regions.schema import schema as regions_schema
+from cart.schema import schema as cart_schema
 import graphql_jwt
 
-class Query(posts_schema.Query,categories_schema.Query,regions_schema.Query,graphene.ObjectType):
+class Query(posts_schema.Query,categories_schema.Query,regions_schema.Query,cart_schema.Query,graphene.ObjectType):
     # hello = graphene.String(default_value="Hi!")
     pass
 
